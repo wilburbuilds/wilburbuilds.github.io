@@ -1,0 +1,19 @@
+{
+  "name": "Wilbur",
+  "description": "Wilbur's writing.",
+  "about": "[About: Wil to write]",
+  "notesHeading": "Notes",
+  "notes": [
+    "[Notes: Wil to write. Short lines, one per item. Empty list hides this section]"
+  ],
+  "links": [
+    { "label": "GitHub", "href": "https://github.com/wilburbuilds" }
+  ],
+  "sourceDir": "content",
+  "sampleDir": "content-sample",
+  "siteUrl": "",
+  "publicEmail": "",
+  "backupDir": "~/.local/share/personal-site/backups",
+  "keepBackups": 20,
+  "previewPort": 4321
+}
