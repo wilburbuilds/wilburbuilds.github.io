@@ -9,6 +9,36 @@ import { scan, report } from "./scan.mjs";
 
 const marked = new Marked({ gfm: true, breaks: false });
 
+const THEME_SCRIPT = `<script>
+(() => {
+  const root = document.documentElement;
+  let mq, choice;
+  try { const s = localStorage.getItem("theme"); if (s === "light" || s === "dark") choice = s; } catch {}
+  try { mq = matchMedia("(prefers-color-scheme: dark)"); } catch {}
+  const apply = () => {
+    const dark = choice ? choice === "dark" : !!(mq && mq.matches);
+    root.dataset.theme = dark ? "dark" : "light";
+    const b = document.querySelector("[data-theme-toggle]");
+    if (!b) return;
+    b.hidden = false;
+    b.setAttribute("aria-pressed", String(dark));
+    b.title = dark ? "Switch to light mode" : "Switch to dark mode";
+    b.firstElementChild.textContent = dark ? "\u2600\uFE0E" : "\u263E";
+  };
+  apply();
+  document.addEventListener("DOMContentLoaded", () => {
+    apply();
+    document.querySelector("[data-theme-toggle]").addEventListener("click", () => {
+      choice = root.dataset.theme === "dark" ? "light" : "dark";
+      try { localStorage.setItem("theme", choice); } catch {}
+      apply();
+    });
+  });
+  if (mq && mq.addEventListener) mq.addEventListener("change", apply);
+})();
+</script>`;
+const TOGGLE = `<button class="theme-toggle" type="button" data-theme-toggle aria-label="Dark mode" aria-pressed="false" hidden><span aria-hidden="true">\u263E</span></button>`;
+
 const page = (cfg, { title, body, depth, cls = "", description }) => {
   const up = depth ? "../".repeat(depth) : "./";
   const nav = cfg.links.map((l) => `<a href="${esc(l.href)}">${esc(l.label)}</a>`).join("");
@@ -18,6 +48,7 @@ const page = (cfg, { title, body, depth, cls = "", description }) => {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
+${THEME_SCRIPT}
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description || cfg.description || cfg.name)}">
 <link rel="stylesheet" href="${up}site.css">${cfg.siteUrl ? `\n<link rel="alternate" type="application/rss+xml" title="${esc(cfg.name)}" href="${up}rss.xml">` : ""}
@@ -25,7 +56,7 @@ const page = (cfg, { title, body, depth, cls = "", description }) => {
 <body class="${cls}">
 <header class="site-header">
 <${depth ? "div" : "h1"} class="name"><a href="${up}">${esc(cfg.name)}</a></${depth ? "div" : "h1"}>
-<nav>${nav}</nav>
+<nav aria-label="Main navigation">${nav}${TOGGLE}</nav>
 </header>
 <main>
 ${body}
