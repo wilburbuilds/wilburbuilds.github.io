@@ -119,22 +119,14 @@ ${html}
   }
 
   // Home page.
-  const byYear = new Map();
-  for (const n of notes) (byYear.get(n.date.y) || byYear.set(n.date.y, []).get(n.date.y)).push(n);
-  const years = [...byYear.keys()].sort((a, b) => b - a).map((y) => `<section class="year">
-<h3>${y}</h3>
-<ul>
-${byYear.get(y).map((n) => `<li><a href="writing/${n.slug}/">${esc(n.title)}</a><time datetime="${n.date.iso}">${fmtDate(n.date)}</time></li>`).join("\n")}
-</ul>
-</section>`).join("\n");
   const notesBlock = cfg.notes.length ? `<h2>${esc(cfg.notesHeading || "Notes")}</h2>\n<ul class="notes">\n${cfg.notes.map((x) => typeof x === "string" ? `<li>${esc(x)}</li>` : `<li>${esc(x.text || "")}<a href="${esc(x.href)}">${esc(x.link)}</a>${esc(x.after || "")}</li>`).join("\n")}\n</ul>` : "";
+  // Work list from config (newest first, as listed). Posts still build at /writing/<slug>/ and in rss.xml, but are not listed here.
+  const work = (cfg.work || []).map((w) => `<li><span class="what"><span class="role">${esc(w.role)}</span>&ensp;<span class="org">${esc(w.company)}</span></span><span class="yrs">${esc(String(w.start))}–${w.end ? esc(String(w.end)) : "Now"}</span></li>`).join("\n");
+  const workBlock = work ? `<section class="work">\n<h2>Work</h2>\n<ul>\n${work}\n</ul>\n</section>` : "";
   const home = `<h2>About me</h2>
 <p>${esc(cfg.about)}</p>
 ${notesBlock}
-<section class="writing">
-<h2>Writing</h2>
-${years || "<p>Nothing yet.</p>"}
-</section>`;
+${workBlock}`;
   fs.writeFileSync(path.join(out, "index.html"), page(cfg, { title: cfg.name, body: home, depth: 0, cls: "home" }));
   fs.writeFileSync(path.join(out, "404.html"), page(cfg, { title: `Not found · ${cfg.name}`, body: `<h1>Not found</h1><p><a href="/">Home</a></p>`, depth: 0 }).replace('href="./site.css"', 'href="/site.css"'));
 

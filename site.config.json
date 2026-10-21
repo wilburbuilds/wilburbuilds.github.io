@@ -34,5 +34,37 @@
   "publicEmail": "",
   "backupDir": "~/.local/share/personal-site/backups",
   "keepBackups": 20,
-  "previewPort": 4321
+  "previewPort": 4321,
+  "work": [
+    {
+      "role": "Director of Business Development",
+      "company": "Erber Auto",
+      "start": 2025,
+      "end": null
+    },
+    {
+      "role": "Marketing Lead",
+      "company": "Tenicor",
+      "start": 2024,
+      "end": 2025
+    },
+    {
+      "role": "Marketing & Creative Director",
+      "company": "Werkz Holsters",
+      "start": 2022,
+      "end": 2024
+    },
+    {
+      "role": "Documentary Filmmaker & Photographer",
+      "company": "Northwoods Collective",
+      "start": 2017,
+      "end": 2022
+    },
+    {
+      "role": "Photographer, Videographer & Graphic Designer",
+      "company": "Self-employed",
+      "start": 2014,
+      "end": 2021
+    }
+  ]
 }
