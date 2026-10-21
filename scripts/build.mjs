@@ -96,7 +96,7 @@ ${html}
 ${byYear.get(y).map((n) => `<li><a href="writing/${n.slug}/">${esc(n.title)}</a><time datetime="${n.date.iso}">${fmtDate(n.date)}</time></li>`).join("\n")}
 </ul>
 </section>`).join("\n");
-  const notesBlock = cfg.notes.length ? `<h2>${esc(cfg.notesHeading || "Notes")}</h2>\n<ul class="notes">\n${cfg.notes.map((x) => `<li>${esc(x)}</li>`).join("\n")}\n</ul>` : "";
+  const notesBlock = cfg.notes.length ? `<h2>${esc(cfg.notesHeading || "Notes")}</h2>\n<ul class="notes">\n${cfg.notes.map((x) => typeof x === "string" ? `<li>${esc(x)}</li>` : `<li>${esc(x.text || "")}<a href="${esc(x.href)}">${esc(x.link)}</a>${esc(x.after || "")}</li>`).join("\n")}\n</ul>` : "";
   const home = `<h2>About me</h2>
 <p>${esc(cfg.about)}</p>
 ${notesBlock}

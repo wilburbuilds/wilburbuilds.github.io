@@ -1,17 +1,28 @@
 {
   "name": "Wilbur",
   "description": "Wilbur's writing.",
-  "about": "[About: Wil to write]",
+  "about": "I work in operations. I like finding the workaround a business has lived with for years and building the simple system that replaces it. Lately that means putting AI to work on real problems, at work and at home. This is where I write down what I'm building and learning.",
   "notesHeading": "Notes",
   "notes": [
-    "[Notes: Wil to write. Short lines, one per item. Empty list hides this section]"
+    "Running a small self-hosted stack on a Mac Mini: budgeting, a project tracker, uptime monitoring, and a personal dashboard.",
+    "Working with a team of AI assistants, each with one job, that report back through a single main assistant.",
+    "Turning my reading list into a private podcast so I actually get through it.",
+    "Exploring a bootstrapped business that fixes operations problems for local businesses.",
+    {
+      "text": "Reading: Karri Saarinen, ",
+      "link": "“Someone behind the software”",
+      "href": "https://karrisaarinen.com/posts/someone-behind-the-software/"
+    }
   ],
   "links": [
-    { "label": "GitHub", "href": "https://github.com/wilburbuilds" }
+    {
+      "label": "GitHub",
+      "href": "https://github.com/wilburbuilds"
+    }
   ],
   "sourceDir": "content",
   "sampleDir": "content-sample",
-  "siteUrl": "",
+  "siteUrl": "https://wilburbuilds.github.io",
   "publicEmail": "",
   "backupDir": "~/.local/share/personal-site/backups",
   "keepBackups": 20,
