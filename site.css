@@ -44,7 +44,12 @@ li { margin: 6px 0; }
 .notes { list-style: none; padding-left: 18px; }
 .notes li { position: relative; }
 .notes li::before { content: "·"; position: absolute; left: -16px; color: var(--muted); font-weight: 700; }
-.writing { margin-top: 48px; }
+.work { margin-top: 48px; }
+.work ul { list-style: none; margin: 0; padding: 0; }
+.work li { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 16px; align-items: baseline; margin: 0 0 10px; line-height: 1.5; }
+.work .role { color: var(--ink); font-weight: 500; }
+.work .org, .work .yrs { color: var(--muted); }
+.work .yrs { font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .year { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 20px; margin: 0 0 24px; }
 .year h3 { color: var(--muted); font-size: 13px; font-weight: 400; margin: 2px 0 0; }
 .year ul { list-style: none; margin: 0; padding: 0; }
