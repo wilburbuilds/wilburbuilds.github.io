@@ -4,6 +4,34 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
+<script>
+(() => {
+  const root = document.documentElement;
+  let mq, choice;
+  try { const s = localStorage.getItem("theme"); if (s === "light" || s === "dark") choice = s; } catch {}
+  try { mq = matchMedia("(prefers-color-scheme: dark)"); } catch {}
+  const apply = () => {
+    const dark = choice ? choice === "dark" : !!(mq && mq.matches);
+    root.dataset.theme = dark ? "dark" : "light";
+    const b = document.querySelector("[data-theme-toggle]");
+    if (!b) return;
+    b.hidden = false;
+    b.setAttribute("aria-pressed", String(dark));
+    b.title = dark ? "Switch to light mode" : "Switch to dark mode";
+    b.firstElementChild.textContent = dark ? "☀︎" : "☾";
+  };
+  apply();
+  document.addEventListener("DOMContentLoaded", () => {
+    apply();
+    document.querySelector("[data-theme-toggle]").addEventListener("click", () => {
+      choice = root.dataset.theme === "dark" ? "light" : "dark";
+      try { localStorage.setItem("theme", choice); } catch {}
+      apply();
+    });
+  });
+  if (mq && mq.addEventListener) mq.addEventListener("change", apply);
+})();
+</script>
 <title>Not found · Wilbur</title>
 <meta name="description" content="Wilbur's writing.">
 <link rel="stylesheet" href="/site.css">
@@ -12,7 +40,7 @@
 <body class="">
 <header class="site-header">
 <h1 class="name"><a href="./">Wilbur</a></h1>
-<nav><a href="https://github.com/wilburbuilds">GitHub</a></nav>
+<nav aria-label="Main navigation"><a href="https://github.com/wilburbuilds">GitHub</a><a href="https://x.com/wilbursensing">X</a><a href="https://www.linkedin.com/in/wilsensing/">LinkedIn</a><button class="theme-toggle" type="button" data-theme-toggle aria-label="Dark mode" aria-pressed="false" hidden><span aria-hidden="true">☾</span></button></nav>
 </header>
 <main>
 <h1>Not found</h1><p><a href="/">Home</a></p>
